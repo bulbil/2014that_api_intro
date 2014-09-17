@@ -43,7 +43,8 @@ body, html{ font-family: "Helvetica Neue", Helvetica, Ariel, sans-serif; height:
 
 #results h3{ color: #bbb; display: none; }
 
-#thumbs ul li img{ min-width: 200px; }
+.thumb { width: 200px; min-height: 200px; margin-bottom: 15px; clear: both;}
+.thumb img { min-width: 200px; }
 
 .push { height: 60px; }
 

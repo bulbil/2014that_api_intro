@@ -59,12 +59,12 @@
                         </div>
                 </div>
                 <div class='row'>
-                        <div class='col-md-8 col-md-offset-2' id='thumbs'>
-                                <ul class='list-inline'>
-                                        <h2>Enter a search term and get some thumbs back.</h2>
-                                </ul>
+                        <div class="col-md-8 col-md-offset-2" id="thumbs">
+                                        <!-- <h2>Enter a search term and get some thumbs back.</h2> -->
                         </div>
-                </div>
+
+
+                 </div>
         </div>
 
         <div class="push"></div>
@@ -76,10 +76,10 @@
 
 
                 <script type="text/template" id="thumbs_template">
-                        <li rel="tooltip" title="<%= thumb.sourceResource.title %>" data-placement="auto bottom">
+                        <div class="thumb" rel="tooltip" title="<%= thumb.sourceResource.title %>" data-placement="auto bottom">
                             <a href="<%= thumb.isShownAt %>" target="_blank" >
                             <img src="<%= thumb.object %>" alt="">
-                        </a></li>
+                        </a></div>
                 </script>
 
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -87,6 +87,7 @@
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="js/bootstrap.min.js"></script>
                 <script src="js/underscore-min.js"></script>
+                <script src="js/masonry.pkgd.min.js"></script>
                 <script src="js/key.js"></script>
                 <script src="js/scripts.js"></script>
 

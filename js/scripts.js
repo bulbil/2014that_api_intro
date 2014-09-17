@@ -12,28 +12,28 @@ var dplaThumbs = {
 	data: {
 		'q': '',
 		'page': 2,
-		'page_size': 25,
+		'page_size': 0,
 		'api_key': apiKey
 	},
 
 	template: _.template( $('#thumbs_template').html() ),
-	search: function(str, int){
-		
-
+	
+	search: function(str, page){
 	// the main object to store your GET parameters ... 
 	// the possibilities are (almost) endless
-		dplaThumbs.data.q = str;
+		this.data.q = str;
+		this.data.page = page;
 
-	    dplaThumbs.getData()
-	    	.done(function(d){ 
-	    		dplaThumbs.showThumbs(d);
+	    this.getData()
+	    	.done(_.bind(function(d){ 
+	    		this.showThumbs(d);
 				$('.tooltip').tooltip({
 					animation: true,
 					html: true,
 					placement: 'auto bottom'
 					});
-
-	    	});
+				}, this)
+			);
 	},
 
 	getData: function(){
@@ -41,8 +41,8 @@ var dplaThumbs = {
 		return $.ajax({
 
 	        type: 'GET',
-	        url: dplaThumbs.baseURL,
-	        data: dplaThumbs.data,
+	        url: this.baseURL,
+	        data: this.data,
 	        // don't forget! otherwise won't work
 	        dataType: 'jsonp',
 	        error: function(e) { console.log(e.message); }
@@ -50,21 +50,24 @@ var dplaThumbs = {
 	},
 
 	showThumbs: function(json){
-		$thumbs = $('#thumbs ul');
-		$thumbs.empty();
-
+		// $thumbs = $('#thumbs ul');
+		var $thumbs = $('#thumbs');
+		$thumbs.masonry('remove', $('.thumb'));
 		$results = $('#results h3');
-		$results.find('#page-size').html( dplaThumbs.data['page_size'] );
+		$results.find('#page-size').html( this.data['page_size'] );
 		$results.show();
 
 		// each request has some overall metadata, like data.count
 		var count = (json.count > 0) ? json.count + ' results' : 'no results';
 		$('#count h1').text(count);
 		
+		var thumbsArray = [];
 		for(var i =0; i < json.limit; i++ ){
 
-			$thumbs.append(this.template({thumb: json.docs[i]}));	
+			if(json.docs[i].object){ $thumbs.append($(this.template({thumb: json.docs[i]}))); }
 		}
+		$thumbs.masonry('appended', $('.thumb'));
+		console.log(thumbsArray);
 	}
 }
 
@@ -74,14 +77,24 @@ $(function(){
 		selector: '[rel=tooltip]',
 		html: true
 	});
+
+	var $thumbs = $('#thumbs');
+	$('#thumbs').masonry({
+		// options
+		columnWidth: 200,
+		itemSelector: '.thumb',
+		containerStyle: null,
+		// isFitWidth: true,
+		gutter: 15
+	});
+
 	// search button event
 	$('#search').submit(function(e) {
 
 		e.preventDefault();
-	    page = ($('#thumbs ul li').length == 0) ? 1 : page + 1; 
-	    $('#thumbs ul li').remove();
+	    var page = ($('#thumbs div').length == 0) ? 1 : page + 1; 
 		var input = $('#search input[type=text]').val();
 		dplaThumbs.search(input, page);
-});
+	});
 
 });
