@@ -42,25 +42,37 @@ var dplaThumbs = {
     		'page_size': 10,
     		'page': int
 	        	};
+
+	    dplaThumbs.getData(data)
+	    	.done(function(d){ 
+	    		dplaThumbs.showThumbs(d);
+	    	});
+	},
+
+	getData: function(json){
 	// the basic ajax request
-		$.ajax({
+		return $.ajax({
 
 	        type: 'GET',
 	        url: baseURL,
-	        data: data,
+	        data: json,
 	        // don't forget! otherwise won't work
 	        dataType: 'jsonp',
-	        success: function(data) {
-			
-			$('#thumbs ul').empty();
-			$('#results h3').show();
+	        error: function(e) { console.log(e.message); }
+	    });
+	},
+
+	showThumbs: function(json){
+
+		$('#thumbs ul').empty();
+		$('#results h3').show();
 
 		// each request has some overall metadata, like data.count
-		var count = (data.count > 0) ? data.count + ' results' : 'no results';
+		var count = (json.count > 0) ? json.count + ' results' : 'no results';
 		$('#count h1').text(count);
-		console.log(data.docs);
+		console.log(json.docs);
 		// each record is returned in data.docs
-		$.each(data.docs, function(i,d) {
+		$.each(json.docs, function(i,d) {
 
 			// d.object, for instance, has the URL to the thumb (low-res preview of the digital object)
 			// for the purpose of this thing, skips a result if no thumbnail
@@ -74,9 +86,5 @@ var dplaThumbs = {
 				$thumb.tooltip({'title': d.sourceResource.title, 'placement': 'auto bottom'});
 				}
 			});
-		},
-
-	        error: function(e) { console.log(e.message); }
-	    });
 	}
 }

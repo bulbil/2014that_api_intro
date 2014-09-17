@@ -27,13 +27,11 @@ body, html{ font-family: "Helvetica Neue", Helvetica, Ariel, sans-serif; height:
             margin: 0 auto -63px;
 }
 
-.navbar {background-color: #13140F ; border-bottom: 5px solid #68776C;}
+.navbar {background-color: #13140F ; border-bottom: 3px solid #00D6DD;}
 
 .navbar #brand h1 { font-family: "Monoton", Helvetica, sans-serif; font-style: italic; height: 1.5em;}
 
 .navbar h1, .navbar #count { color: #D4FF00; }
-
-.navbar #count { }
 
 .navbar #search { padding-top: 1.5%;}
 
@@ -41,7 +39,9 @@ body, html{ font-family: "Helvetica Neue", Helvetica, Ariel, sans-serif; height:
 
 #results {padding-top: 10%;}
 
-#results h3{ color: #bbb; display: none;}
+#results div:first-child h3 { color: #68776C; padding-bottom: 30px; }
+
+#results h3{ color: #bbb; display: none; }
 
 #thumbs ul li img{ min-width: 200px; }
 
@@ -50,5 +50,5 @@ body, html{ font-family: "Helvetica Neue", Helvetica, Ariel, sans-serif; height:
 footer { 
 	height: 60px;
 	background-color: #13140F ; 
-	border-top: 5px solid #68776C;
+	border-top: 3px solid #00D6DD;
 }
