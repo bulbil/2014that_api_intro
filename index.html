@@ -55,7 +55,7 @@
         <div class="container" id="results">
                 <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <em><h3>click return for the next 10 results</h3></em>
+                            <em><h3>click return for the next <span id="page-size"></span> results</h3></em>
                         </div>
                 </div>
                 <div class='row'>
@@ -76,7 +76,8 @@
 
 
                 <script type="text/template" id="thumbs_template">
-                        <li> <a href="<%= thumb.isShownAt %>" target="_blank" >
+                        <li rel="tooltip" title="<%= thumb.sourceResource.title %>" data-placement="auto bottom">
+                            <a href="<%= thumb.isShownAt %>" target="_blank" >
                             <img src="<%= thumb.object %>" alt="">
                         </a></li>
                 </script>

@@ -7,27 +7,24 @@
 // this is a simple script to show off the basics of the DPLA
 // API -- not particularly robust but I hope gives the basic idea
 
-// first get your api key from http://dp.la/info/developers/codex/policies/#get-a-key
-//var apiKey = '[YOUR_API_KEY]',
-var baseURL = 'http://api.dp.la/v2/items?q=',
-// pagination does not start on 0 but on an index of 1
-page = 1;
-
 var dplaThumbs = {
+	baseURL: 'http://api.dp.la/v2/items?q=',
+	data: {
+		'q': '',
+		'page': 2,
+		'page_size': 25,
+		'api_key': apiKey
+	},
 
 	template: _.template( $('#thumbs_template').html() ),
 	search: function(str, int){
 		
+
 	// the main object to store your GET parameters ... 
 	// the possibilities are (almost) endless
-		data = { 	
-			'q': str, 
-    		'api_key': apiKey,
-    		'page_size': 10,
-    		'page': int
-	        	};
+		dplaThumbs.data.q = str;
 
-	    dplaThumbs.getData(data)
+	    dplaThumbs.getData()
 	    	.done(function(d){ 
 	    		dplaThumbs.showThumbs(d);
 				$('.tooltip').tooltip({
@@ -39,13 +36,13 @@ var dplaThumbs = {
 	    	});
 	},
 
-	getData: function(json){
+	getData: function(){
 	// the basic ajax request
 		return $.ajax({
 
 	        type: 'GET',
-	        url: baseURL,
-	        data: json,
+	        url: dplaThumbs.baseURL,
+	        data: dplaThumbs.data,
 	        // don't forget! otherwise won't work
 	        dataType: 'jsonp',
 	        error: function(e) { console.log(e.message); }
@@ -55,7 +52,10 @@ var dplaThumbs = {
 	showThumbs: function(json){
 		$thumbs = $('#thumbs ul');
 		$thumbs.empty();
-		$('#results h3').show();
+
+		$results = $('#results h3');
+		$results.find('#page-size').html( dplaThumbs.data['page_size'] );
+		$results.show();
 
 		// each request has some overall metadata, like data.count
 		var count = (json.count > 0) ? json.count + ' results' : 'no results';
@@ -63,20 +63,17 @@ var dplaThumbs = {
 		
 		for(var i =0; i < json.limit; i++ ){
 
-			$thumbs.append(this.template({thumb: json.docs[i]}));
-			$(thumbs).find('li').tooltip({ 
-				title: json.docs[i].sourceResource.title,
-				placement: "auto bottom",
-				animation: true
-			});
+			$thumbs.append(this.template({thumb: json.docs[i]}));	
 		}
 	}
 }
 
-// bootstrap tooltip instantiation
-
 $(function(){
-	
+
+	$('body').tooltip({
+		selector: '[rel=tooltip]',
+		html: true
+	});
 	// search button event
 	$('#search').submit(function(e) {
 
