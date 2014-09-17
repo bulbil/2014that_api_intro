@@ -74,6 +74,13 @@
                 <div class="container"></div>
         </footer>
 
+
+                <script type="text/template" id="thumbs_template">
+                        <li> <a href="<%= thumb.isShownAt %>" target="_blank" >
+                            <img src="<%= thumb.object %>" alt="">
+                        </a></li>
+                </script>
+
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
                 <script src="https://code.jquery.com/jquery.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -81,5 +88,6 @@
                 <script src="js/underscore-min.js"></script>
                 <script src="js/key.js"></script>
                 <script src="js/scripts.js"></script>
+
         </body>
         </html>

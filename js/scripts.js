@@ -13,25 +13,9 @@ var baseURL = 'http://api.dp.la/v2/items?q=',
 // pagination does not start on 0 but on an index of 1
 page = 1;
 
-// bootstrap tooltip instantiation
-$('.tooltip').tooltip();
-
-// search button event
-$('#search').submit(function(e) {
-
-	e.preventDefault();
-
-    page = ($('#thumbs ul li').length == 0) ? 1 : page + 1; 
-    $('#thumbs ul li').remove();
-
-	var input = $('#search input[type=text]').val();
-
-	dplaThumbs.search(input, page);
-
-});
-
 var dplaThumbs = {
 
+	template: _.template( $('#thumbs_template').html() ),
 	search: function(str, int){
 		
 	// the main object to store your GET parameters ... 
@@ -46,6 +30,12 @@ var dplaThumbs = {
 	    dplaThumbs.getData(data)
 	    	.done(function(d){ 
 	    		dplaThumbs.showThumbs(d);
+				$('.tooltip').tooltip({
+					animation: true,
+					html: true,
+					placement: 'auto bottom'
+					});
+
 	    	});
 	},
 
@@ -63,28 +53,38 @@ var dplaThumbs = {
 	},
 
 	showThumbs: function(json){
-
-		$('#thumbs ul').empty();
+		$thumbs = $('#thumbs ul');
+		$thumbs.empty();
 		$('#results h3').show();
 
 		// each request has some overall metadata, like data.count
 		var count = (json.count > 0) ? json.count + ' results' : 'no results';
 		$('#count h1').text(count);
-		console.log(json.docs);
-		// each record is returned in data.docs
-		$.each(json.docs, function(i,d) {
+		
+		for(var i =0; i < json.limit; i++ ){
 
-			// d.object, for instance, has the URL to the thumb (low-res preview of the digital object)
-			// for the purpose of this thing, skips a result if no thumbnail
-			if(d.object) {
-				$('#thumbs ul').append('<li>');
-				var $thumb = $('#thumbs li').last();
-				$thumb.append('<a><img>');
-				// d.isShownAt has the URL to the original representation of the record
-				$thumb.children('a').attr( {'href': d.isShownAt, 'target': 'blank'});	
-				$thumb.find('a img').attr('src', d.object);
-				$thumb.tooltip({'title': d.sourceResource.title, 'placement': 'auto bottom'});
-				}
+			$thumbs.append(this.template({thumb: json.docs[i]}));
+			$(thumbs).find('li').tooltip({ 
+				title: json.docs[i].sourceResource.title,
+				placement: "auto bottom",
+				animation: true
 			});
+		}
 	}
 }
+
+// bootstrap tooltip instantiation
+
+$(function(){
+	
+	// search button event
+	$('#search').submit(function(e) {
+
+		e.preventDefault();
+	    page = ($('#thumbs ul li').length == 0) ? 1 : page + 1; 
+	    $('#thumbs ul li').remove();
+		var input = $('#search input[type=text]').val();
+		dplaThumbs.search(input, page);
+});
+
+});
