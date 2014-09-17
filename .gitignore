@@ -1,0 +1,25 @@
+_Store
+.AppleDouble
+.LSOverride
+Icon
+.sql
+.zip
+*.jar
+*.txt
+
+data/*
+js/key.js
+db.php
+
+/wp
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# SublimeText project files
+*.sublime-workspace
+
