@@ -1,4 +1,4 @@
-// 				<コ:彡
+//				<コ:彡
 //
 //			dpla-thumbs
 // 
@@ -9,50 +9,52 @@
 
 var dplaThumbs = {
 	baseURL: 'http://api.dp.la/v2/items?q=',
+	// the main object to store your GET parameters ... 
+	// the possibilities are (almost) endless
+
 	data: {
 		'q': '',
-		'page': 2,
-		'page_size': 0,
+		'page': 0,
+		'page_size': 25,
 		'api_key': apiKey
 	},
 
+	$el: $('#thumbs'),
+	
 	template: _.template( $('#thumbs_template').html() ),
 	
-	search: function(str, page){
-	// the main object to store your GET parameters ... 
-	// the possibilities are (almost) endless
-		this.data.q = str;
-		this.data.page = page;
+	search: function(str){
 
-	    this.getData()
-	    	.done(_.bind(function(d){ 
-	    		this.showThumbs(d);
-				$('.tooltip').tooltip({
-					animation: true,
-					html: true,
-					placement: 'auto bottom'
-					});
-				}, this)
-			);
+		this.data.q = str;
+		this.data.page += 1;
+
+		this.getData()
+		.done(_.bind(function(d){
+			this.showThumbs(d);
+			$('.tooltip').tooltip({
+				animation: true,
+				html: true,
+				placement: 'auto bottom' });
+			}, this)
+		);
 	},
 
 	getData: function(){
 	// the basic ajax request
 		return $.ajax({
 
-	        type: 'GET',
-	        url: this.baseURL,
-	        data: this.data,
-	        // don't forget! otherwise won't work
-	        dataType: 'jsonp',
-	        error: function(e) { console.log(e.message); }
-	    });
-	},
+			type: 'GET',
+			url: this.baseURL,
+			data: this.data,
+			// don't forget! otherwise won't work
+			dataType: 'jsonp',
+			error: function(e) { console.log(e.message); }
+			});
+		},
 
 	showThumbs: function(json){
-		// $thumbs = $('#thumbs ul');
-		var $thumbs = $('#thumbs');
-		$thumbs.masonry('remove', $('.thumb'));
+
+		this.$el.packery('remove' , $('.thumb') );
 		$results = $('#results h3');
 		$results.find('#page-size').html( this.data['page_size'] );
 		$results.show();
@@ -64,12 +66,15 @@ var dplaThumbs = {
 		var thumbsArray = [];
 		for(var i =0; i < json.limit; i++ ){
 
-			if(json.docs[i].object){ $thumbs.append($(this.template({thumb: json.docs[i]}))); }
+			if(json.docs[i].object){
+				this.$el.append($(this.template( { thumb: json.docs[i] }) ) );
+				this.$el.packery( 'addItems', $('.thumb').last() );
+			}
 		}
-		$thumbs.masonry('appended', $('.thumb'));
-		console.log(thumbsArray);
+
+		this.$el.packery().imagesLoaded( this.$el.packery() );
 	}
-}
+};
 
 $(function(){
 
@@ -78,23 +83,17 @@ $(function(){
 		html: true
 	});
 
-	var $thumbs = $('#thumbs');
-	$('#thumbs').masonry({
+	$('#thumbs').packery({
 		// options
-		columnWidth: 200,
 		itemSelector: '.thumb',
-		containerStyle: null,
-		// isFitWidth: true,
-		gutter: 15
+		// styleContainer: null,
+		gutter: 15,
+		transitionDuration: ".75s"
 	});
 
-	// search button event
 	$('#search').submit(function(e) {
-
 		e.preventDefault();
-	    var page = ($('#thumbs div').length == 0) ? 1 : page + 1; 
 		var input = $('#search input[type=text]').val();
-		dplaThumbs.search(input, page);
+		dplaThumbs.search(input);
 	});
-
 });
