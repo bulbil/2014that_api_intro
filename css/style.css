@@ -43,13 +43,12 @@ body, html{ font-family: "Helvetica Neue", Helvetica, Ariel, sans-serif; height:
 
 #results h3{ color: #bbb; display: none; }
 
-.thumb { width: 200px; min-height: 200px; margin-bottom: 15px; clear: both;}
+.thumb { width: 200px; min-height: 150px; clear: both;}
 .thumb img { min-width: 200px; }
-
+.packery { min-width: 200px; min-height: 150px; }
 .push { height: 60px; }
 
 footer { 
 	height: 60px;
 	background-color: #13140F ; 
-	border-top: 3px solid #00D6DD;
-}
+	}
