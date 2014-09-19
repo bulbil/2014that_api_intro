@@ -11,7 +11,27 @@
 
  */
 
+
+/*
+
+----------------------------------------------------
+
+get your API KEY by entering this command into the terminal and then checking your email
+
+curl -v –XPOST http://api.dp.la/v2/api_key/[YOUR EMAIL ADDRESS]
+
+----------------------------------------------------
+
 // var apiKey = [ENTER YOUR KEY HERE]
+
+----------------------------------------------------
+
+try this out in your browser's address bar:
+
+http://api.dp.la/v2/items?q=cats&fields=sourceResource.title,sourceResource.subject.name&page_size=10&api_key= [YOUR KEY]
+
+----------------------------------------------------
+*/
 
 // the main things you need to worry about
 var DT = {
@@ -35,23 +55,24 @@ var DT = {
 	crntSearch: null
 };
 
-// the magic api function -- gets data from DPLA 
+// the magic api function -- gets data from DPLA using ajax
 DT.getData = function(){
 	// the basic ajax request
 		return $.ajax({
 
-			type: 'GET',
-			url: this.baseURL,
-			data: this.data,
-			// don't forget! otherwise won't work
-			dataType: 'jsonp',
-			error: function(e) { console.log(e.message); }
+		type: 'GET',
+		url: this.baseURL,
+		data: this.data,
+		// don't forget! otherwise won't work
+		dataType: 'jsonp',
+		error: function(e) { console.log(e.message); }
 		});
 	};
 
 // Don't really have to worry about what's below here if you don't want to
+// ----------------------------------------------------
 	
-// This is what's fired when you search
+// This is what's fired when you click search
 DT.search = function(str){
 		// checks if the search has changed
 		if (this.crntSearch !== null && this.crntSearch !== str) { this.data.page = 0; console.log('new search'); }
