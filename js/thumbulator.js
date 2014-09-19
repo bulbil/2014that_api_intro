@@ -57,16 +57,13 @@ var DT = {
 
 // the magic api function -- gets data from DPLA using ajax
 DT.getData = function(){
-	// the basic ajax request
-		return $.ajax({
+	
+/* ----------------------------------------------------
 
-		type: 'GET',
-		url: this.baseURL,
-		data: this.data,
-		// don't forget! otherwise won't work
-		dataType: 'jsonp',
-		error: function(e) { console.log(e.message); }
-		});
+	THIS SPACE AVAILABLE
+
+ ---------------------------------------------------- */
+
 	};
 
 // Don't really have to worry about what's below here if you don't want to
@@ -116,6 +113,8 @@ DT.showThumbs = function(json){
 	};
 
 // let 'er rip
+// ----------------------------------------------------
+
 $(function(){
 
 	// initializes Bootstrap tooltips
@@ -136,3 +135,22 @@ $(function(){
 		DT.search(input);
 	});
 });
+
+
+// on deck in case you need to look again
+// ----------------------------------------------------
+
+/*
+DT.getData = function(){
+	// the basic ajax request
+		return $.ajax({
+
+		type: 'GET',
+		url: this.baseURL,
+		data: this.data,
+		// don't forget! otherwise won't work
+		dataType: 'jsonp',
+		error: function(e) { console.log(e.message); }
+		});
+	};
+*/
