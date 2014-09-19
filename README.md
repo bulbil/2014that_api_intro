@@ -15,6 +15,13 @@ For those those who want a deeper dive into the details, check out the DPLA’s 
 
 Finally, a few tools and libraries on GitHub ([http://dp.la/info/developers/sample-code-and-libraries/](http://dp.la/info/developers/sample-code-and-libraries/)) to make your job easier, helping you shoehorn in your weapon of choice, be it PHP or Python or Ruby or Java or Node.js.
 
+###But besides the DPLA, where should I look?
+
+[Mia Ridge's API Wiki](http://museum-api.pbworks.com/w/page/21933420/Museum%C2%A0APIs) is targeted and well curated with a heavy museum focus.
+[ProgrammableWeb](http://www.programmableweb.com/) is the boss of all API directories. Comprehensive but not always accurate.
+
+And an aptly named blog post also on Mia's site ["Cool stuff made with cultural heritage APIs "](http://museum-api.pbworks.com/w/page/21933412/Cool%20stuff%20made%20with%20cultural%20heritage%20APIs)
+
 ###What data am I getting?
 
 DPLA dishes out JSON-LD, that is, JSON with a little bit of structure and a few required fields so that it can be used for linked data. To see what you’re getting yourself into, look here for a complete sample response ([http://dp.la/info/developers/codex/responses/](http://dp.la/info/developers/codex/responses/)).

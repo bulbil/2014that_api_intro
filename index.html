@@ -51,13 +51,16 @@
                         </div>
                 </div>
         </div>
-        
+<!-- navbar -->
+
         <div class="container" id="results">
                 <div class="row">
-<<<<<<< HEAD
                         <div class="col-md-8 col-md-offset-2">
                         <div class="col-md-8 col-md-offset-1">
-                            <em><h3>click return for the next <span id="page-size"></span> results</h3></em>
+                            <em><h3>
+                                <span id="page-size">click return for the next <span></span> results</span>
+                                <span id="no-more">no more results to display</span>
+                            </h3></em>
                         </div>
                 </div>
                 <div class='row'>
@@ -65,40 +68,35 @@
                                         <!-- <h2>Enter a search term and get some thumbs back.</h2> -->
                         </div>
                 </div>
-                <div class='row'>
-                        <div class="col-md-8 col-md-offset-2" id="thumbs">
-                                        <!-- <h2>Enter a search term and get some thumbs back.</h2> -->
-                        </div>
-
 
                  </div>
         </div>
-
-        <div class="push"></div>
+        <!-- results -->
         </div>
+<!-- wrapper -->
 
         <footer>
                 <div class="container"></div>
         </footer>
+<!-- footer -->
 
-
+                <!-- templates -->
                 <script type="text/template" id="thumbs_template">
                         <div class="thumb" rel="tooltip" title="<%= thumb.sourceResource.title %>" data-placement="auto bottom">
                             <a href="<%= thumb.isShownAt %>" target="_blank" >
                             <img src="<%= thumb.object %>" alt="">
                         </a></div>
                 </script>
-
-                <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                
+                <!-- js dependencies -->
                 <script src="https://code.jquery.com/jquery.js"></script>
-                <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="js/bootstrap.min.js"></script>
                 <script src="js/underscore-min.js"></script>
                 <script src="js/packery.pkgd.min.js"></script>
                 <script src="js/imagesloaded.pkgd.min.js"></script>
                 <script src="js/sample.js"></script>
                 <script src="js/key.js"></script>
-                <script src="js/scripts.js"></script>
+                <script src="js/thumbulator.js"></script>
 
         </body>
         </html>
