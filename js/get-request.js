@@ -16,7 +16,9 @@ var baseURL = 'http://api.dp.la/v2/items?q=';
 
 // the question
 var data = {
-	'q': 'cats',
+	'q': 'puppies',
+	// 'fields': 'sourceResource.title',
+	'page_size': 10,
 	// 'facets': 'sourceResource.stateLocatedIn',
 	'api_key': apiKey
 };
@@ -24,11 +26,21 @@ var data = {
 getData = function(){
 
 	// cross origin demo
-	return $.get('http://api.dp.la/v2/items?q=cats&api_key=' + apiKey);
+	// return $.get('http://api.dp.la/v2/items?q=cats&api_key=' + apiKey);
 
 // ----------------------------------------------------
 
-// FILL IN WITH AN ACTUAL AJAX REQUEST
+// the basic ajax request
+	return $.ajax({
+
+	type: 'GET',
+	url: baseURL,
+	data: data,
+	// don't forget! otherwise won't work
+	dataType: 'jsonp',
+	success: function(d){ console.log("you're a success!") },
+	error: function(e) { console.log(e.message); }
+	});
 
 // ----------------------------------------------------
 };
@@ -41,11 +53,11 @@ $(function(){
 		
 		console.log(data);
 		var json = data.docs;
-/*		
-		var json = data.facets['sourceResource.stateLocatedIn.name'].terms;
-		var json = _.sortBy(response, function(d) { return d.count; }).reverse();
+		
+		// var json = data.facets['sourceResource.stateLocatedIn.name'].terms;
+		// var json = _.sortBy(json, function(d) { return d.count; }).reverse();
 
-*/
+		console.log(json);
 		$list = $('#list ul');
 		_.each(json, function(d){
 

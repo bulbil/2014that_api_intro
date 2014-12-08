@@ -58,11 +58,20 @@ var DT = {
 // the magic api function -- gets data from DPLA using ajax
 DT.getData = function(){
 	
-/* ----------------------------------------------------
+// ----------------------------------------------------
 
-	THIS SPACE AVAILABLE
+	return $.ajax({
 
- ---------------------------------------------------- */
+	type: 'GET',
+	url: this.baseURL,
+	data: this.data,
+	// don't forget! otherwise won't work
+	dataType: 'jsonp',
+	success: function(d){ console.log("you're a success!") },
+	error: function(e) { console.log(e.message); }
+	});
+
+ // ----------------------------------------------------
 
 	};
 
