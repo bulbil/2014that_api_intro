@@ -1,8 +1,9 @@
 ## DPLA API QUICKIE
 
 Nabil Kashyap
-Digital Scholarship Librarian
-Swarthmore College
+
+Digital Scholarship Librarian, Swarthmore College
+
 nkashya1@swarthmore.edu
 
 ### What is this?
@@ -26,7 +27,7 @@ And an aptly named blog post also on Mia's site ["Cool stuff made with cultural 
 
 DPLA dishes out JSON-LD, that is, JSON with a little bit of structure and a few required fields so that it can be used for linked data. To see what you’re getting yourself into, look here for a complete sample response ([http://dp.la/info/developers/codex/responses/](http://dp.la/info/developers/codex/responses/)).
 
-###What should I do with the data?
+### What should I do with the data?
 
 For some app ideas, try here ([http://dp.la/apps](http://dp.la/apps)) and here ([http://dp.la/info/developers/appfest/the-apps/](http://dp.la/info/developers/appfest/the-apps/)). 
 
